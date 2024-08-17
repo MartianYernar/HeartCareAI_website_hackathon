@@ -1,0 +1,6 @@
+path: C:\Users\Ernar\Documents\HeartCareAI_flask_webapp\static\2_xrayAI
+train: images
+val: images
+
+names:
+  0: Heart disease

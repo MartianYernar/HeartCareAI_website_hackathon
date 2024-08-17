@@ -1,0 +1,8 @@
+data/obj_train_data/whd.png
+data/obj_train_data/whd1.jpg
+data/obj_train_data/whd2.jpg
+data/obj_train_data/whd3.jpg
+data/obj_train_data/wthd1.jpg
+data/obj_train_data/wthd2.jpg
+data/obj_train_data/wthd3.jpg
+data/obj_train_data/wthd4.jpg

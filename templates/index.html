@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeartCareAI</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        #upload-section, #chat-section {
+            width: 45%;
+            padding: 30px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #upload-section:hover, #chat-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #upload-section h2, #chat-section h2 {
+            text-align: center;
+            color: #FF6B6B;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        input[type="file"], input[type="submit"] {
+            display: block;
+            width: 80%;
+            margin: 15px auto;
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            background-color: #ff6060;
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            background-color: #fa5846;
+            color: #333;
+            padding: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(135deg, #fa3d44, #ff6161);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    
+        #response {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #E0F7FA;
+            border: 2px solid #4DD0E1;
+            display: none;
+            border-radius: 20px;
+            color: #00796B;
+            font-weight: bold;
+        }
+
+        #uploaded-xray {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #uploaded-xray img {
+            max-width: 100%;
+            border-radius: 20px;
+            border: 3px solid #FF6B6B;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #chat-box {
+            height: 350px;
+            overflow-y: auto;
+            background-color: #F1F8E9;
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px solid #C5E1A5;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #chat-box p {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        #chat-box p:nth-child(odd) {
+            background-color: #FFF9C4;
+        }
+
+        #chat-box p:nth-child(even) {
+            background-color: #FFECB3;
+        }
+
+        #chat-input {
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            border-radius: 20px;
+            border: 2px solid #FFECB3;
+            background-color: #FFF9E3;
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        #send-button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #FF6B6B;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #send-button:hover {
+            background-color: #E65C5C;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+
+            .container {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+
+            #upload-section, #chat-section {
+                width: 90%;
+                margin: 20px 0;
+            }
+
+            #chat-box {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="upload-section">
+            <h2>HeartCareAI - Upload X-Ray Photo of Your Heart</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <input type="file" name="xray" accept="image/*" required>
+                <input type="submit" value="Upload">
+            </form>
+            <div id="response">Diagnosing...</div>
+            <div id="uploaded-xray">
+                <img id="uploaded-image" src="#" alt="Uploaded X-Ray" style="display: none;">
+            </div>
+        </div>
+
+        <div id="chat-section">
+            <h2>HeartCare Chat</h2>
+            <div id="chat-box">
+                <p>Welcome to HeartCareAI. How can I help you today?</p>
+            </div>
+            <textarea id="chat-input" placeholder="Ask for advice..."></textarea>
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const uploadForm = document.getElementById('upload-form');
+        const responseDiv = document.getElementById('response');
+        const uploadedImage = document.getElementById('uploaded-image');
+        const chatBox = document.getElementById('chat-box');
+        const chatInput = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-button');
+
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(uploadForm);
+            responseDiv.style.display = 'block';
+            responseDiv.textContent = 'Diagnosing...';
+
+            try {
+                const response = await fetch('/upload-xray', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                responseDiv.textContent = result.message;
+
+                if (response.ok && result.image_url) {
+                    uploadedImage.src = result.image_url;
+                    uploadedImage.style.display = 'block';
+                }
+            } catch (error) {
+                responseDiv.textContent = 'Error diagnosing. Please try again.';
+            }
+        });
+
+        sendButton.addEventListener('click', async () => {
+            const userMessage = chatInput.value;
+            if (!userMessage.trim()) return;
+
+            chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+            chatInput.value = '';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: userMessage })
+                });
+                const result = await response.json();
+                chatBox.innerHTML += `<p><strong>HeartCareAI:</strong> ${result.reply}</p>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                chatBox.innerHTML += `<p>Error. Please try again.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
