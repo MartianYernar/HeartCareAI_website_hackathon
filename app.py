@@ -1,16 +1,11 @@
 from flask import Flask, render_template, request, jsonify
-# import sqlite3
 from ultralytics import YOLO
-import openai
 from openai import OpenAI
-# import os
 
 app = Flask(__name__)
 model = YOLO('static/best.pt')
 
-client = OpenAI()
-# openai.api_key = 'sk-PBSrhB4qmYRsM_8PDaMaa-YZPMciFl3fQNtc9rGxjaT3BlbkFJGyDkXQdaJ1EA91AMINtJWFRZ3s3UxL7clAp60KqIcA'
-openai.api_key = "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"
+client = OpenAI()  # reads OPENAI_API_KEY from the environment
 
 
 @app.route('/')
